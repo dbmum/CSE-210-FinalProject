@@ -15,11 +15,13 @@ namespace CSE_210_FinalProject
         private bool _keepPlaying = true;
         private Dictionary<string, List<Actor>> _cast;
         private Dictionary<string, List<Action>> _script;
+        private RosterService _rosterService;
 
-        public Director(Dictionary<string, List<Actor>> cast, Dictionary<string, List<Action>> script)
+        public Director(Dictionary<string, List<Actor>> cast, Dictionary<string, List<Action>> script, RosterService rosterService)
         {
             _cast = cast;
             _script = script;
+            _rosterService = rosterService;
         }
 
 
@@ -35,6 +37,15 @@ namespace CSE_210_FinalProject
                 CueAction("output");
 
                 if (Raylib_cs.Raylib.WindowShouldClose())
+                {
+                    _keepPlaying = false;
+                }
+
+                if (_rosterService.TeamCount(1, _cast) == 0)
+                {
+                    _keepPlaying = false;
+                }
+                if (_rosterService.TeamCount(2, _cast) == 0)
                 {
                     _keepPlaying = false;
                 }

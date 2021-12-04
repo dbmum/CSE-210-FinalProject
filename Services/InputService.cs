@@ -31,6 +31,19 @@ namespace CSE_210_FinalProject
             return Raylib.IsKeyDown(Raylib_cs.KeyboardKey.KEY_DOWN);
         }
 
+        public bool IsMouseLeftClick()
+        {
+            return Raylib.IsMouseButtonPressed(Raylib_cs.MouseButton.MOUSE_LEFT_BUTTON);
+        }
+        public int GetMouseX()
+        {
+            return Raylib.GetMouseX();
+        }
+        public int GetMouseY()
+        {
+            return Raylib.GetMouseY();
+        }
+
         /// <summary>
         /// Gets the direction asked for by the current key presses
         /// </summary>

@@ -14,6 +14,8 @@ namespace CSE_210_FinalProject
         protected string _text = "";
         private string _image = "";
 
+        protected bool _hasGravity = false;
+
         public Actor()
         {
             // Start these at 0, 0 by default
@@ -21,6 +23,10 @@ namespace CSE_210_FinalProject
             _velocity = new Point(0, 0);
         }
 
+        public bool HasGravity()
+        {
+            return _hasGravity;
+        }
 
         public void SetImage(string image)
         {

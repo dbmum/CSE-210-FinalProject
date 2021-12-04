@@ -7,10 +7,11 @@ namespace CSE_210_FinalProject
     public class ControlActorsAction : Action
     {
         InputService _inputService;
-        Player _activePlayer;
-        public ControlActorsAction(InputService inputService)
+        RosterService _rosterservice;
+        public ControlActorsAction(InputService inputService, RosterService rosterService)
         {
             _inputService = inputService;
+            _rosterservice = rosterService;
         }
 
         ///<summary>Use input to set paddle velocity, and handle its wall collision</summary>
@@ -19,46 +20,43 @@ namespace CSE_210_FinalProject
             Point direction = _inputService.GetDirection();
             Actor arrow = cast["arrows"][0];
             
-            GetActivePlayer(cast);
+            Player activePlayer = _rosterservice.GetActivePlayer(cast);
 
-            Point arrowPosition = new Point(_activePlayer.GetPosition().GetX() 
-                + (Constants.PLAYER_WIDTH  / 4),
-                _activePlayer.GetPosition().GetY() - Constants.ARROW_GAP);
-            
-            arrow.SetPosition(arrowPosition);
-                         
-            if ((_inputService.IsLeftPressed() || _inputService.IsRightPressed()) && _activePlayer.isUser())
+            if (activePlayer.isUser() && !activePlayer.HasShot())
             {
-                Point velocity = direction.Scale(Constants.PLAYER_SPEED);
-                _activePlayer.SetVelocity(velocity);
+                Point arrowPosition = new Point(activePlayer.GetPosition().GetX() 
+                    + (Constants.PLAYER_WIDTH  / 4),
+                    activePlayer.GetPosition().GetY() - Constants.ARROW_GAP);
+                
+                arrow.SetPosition(arrowPosition);
+                            
+                if ((_inputService.IsLeftPressed() || _inputService.IsRightPressed()) && activePlayer.isUser())
+                {
+                    
+                    Point velocity = new Point
+                    (
+                        direction.Scale(Constants.PLAYER_SPEED).GetX(),
+                        3
+                    );
+                    activePlayer.SetVelocity(velocity);
 
+                }
+                else 
+                {
+                    StopActor(activePlayer);
+                }    
             }
-            else 
-            {
-                StopActor(_activePlayer);
-            }    
         }
 
-        ///<summary>Return actor velocity to 0 so that it does not move continuously</summary>
+        ///<summary>Return actor x velocity to 0 so that it does not move continuously</summary>
         ///<param name="actor actor">
         private void StopActor(Actor actor)
         {
-            Point velocity = new Point(0,0);
+            int y = actor.GetVelocity().GetY();
+            Point velocity = new Point(0,y);
             actor.SetVelocity(velocity);
         }
 
-        private void GetActivePlayer(Dictionary<string, List<Actor>> cast)
-        {
-            foreach (Player player in cast["players"])
-            {
-                bool isActive = player.GetStatus();                
-                if (isActive)
-                {
-                    _activePlayer = player;
-                    break;
-                }
-
-            }
-        }
+        
     }
 }
