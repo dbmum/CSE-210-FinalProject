@@ -24,6 +24,12 @@ namespace CSE_210_FinalProject
             Point velocity = actor.GetVelocity();
             Point newVelocity = new Point(velocity.GetX(), velocity.GetY() + Constants.GRAVITY_RATE);
 
+            if (newVelocity.GetY() > Constants.GRAVITY_CAP)
+            {
+                Point capVelocity = new Point(newVelocity.GetX(), Constants.GRAVITY_CAP);
+                newVelocity = capVelocity;
+            }
+
             actor.SetVelocity(newVelocity);
         }
     }

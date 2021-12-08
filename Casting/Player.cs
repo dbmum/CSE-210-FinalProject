@@ -10,6 +10,9 @@ namespace CSE_210_FinalProject
         private bool _isActivePlayer;
         private int _life;
         private bool _hasShot = false;
+        private int _movementRemaining = Constants.MAX_MOVEMENT;
+        private bool _AIcanShoot;
+
         public Player(int startingX, int startingY, bool isUser, int team)
         {
             Point staringPosition = new Point(startingX,startingY);
@@ -28,6 +31,27 @@ namespace CSE_210_FinalProject
             
             _isUser = isUser;
 
+            if (!_isUser)
+            {
+                _AIcanShoot = false;
+            }
+
+        }
+        public void SetCanShoot(bool canShoot)
+        {
+            _AIcanShoot = canShoot;
+        }
+        public void LoseMovement()
+        {
+            _movementRemaining -= 1;
+        }
+        public void ResetMovement()
+        {
+            _movementRemaining = Constants.MAX_MOVEMENT;
+        }
+        public bool HasMovement()
+        {
+            return (_movementRemaining > 0);
         }
         public bool GetStatus()
         {

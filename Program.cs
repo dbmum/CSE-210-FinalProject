@@ -34,15 +34,15 @@ namespace CSE_210_FinalProject
 
             for (int i = 1; i < Constants.TEAM_2_COUNT + 1; i++)
             {
-                Player player2 = new Player((((Constants.MAX_X / 2) / Constants.TEAM_2_COUNT + 1) * i ) + (Constants.MAX_X / 2) - 50, 0, true, 2);
+                Player player2 = new Player((((Constants.MAX_X / 2) / Constants.TEAM_2_COUNT + 1) * i ) + (Constants.MAX_X / 2) - 50, 0, false, 2);
                 player2.SetImage("./Assets/brick-1.png");
                 cast["players"].Add(player2);
             }
             
-            
+            // terrain generation
             List<String> trends = new List<string>{"up", "flat", "down"};
             Random rnd = new Random();
-            int y = rnd.Next(Constants.MAX_Y - 300,Constants.MAX_Y - 200);
+            int y = rnd.Next(Constants.MAX_Y - 300,Constants.MAX_Y - 100);
             int trendnum = rnd.Next(trends.Count);
             string trend = trends[trendnum];
 
@@ -76,7 +76,7 @@ namespace CSE_210_FinalProject
                     y ++;
                 }
                 
-                if (y <= 50)
+                if (y <= 100)
                 {
                     trend = "down";
                 }
@@ -120,7 +120,7 @@ namespace CSE_210_FinalProject
             ControlActorsAction controlActorsAction = new ControlActorsAction(inputService, rosterService);
             script["input"].Add(controlActorsAction);
 
-            MakeShotAction makeShotAction = new MakeShotAction(rosterService, inputService);
+            MakeShotAction makeShotAction = new MakeShotAction(rosterService, inputService, physicsService);
             script["input"].Add(makeShotAction);
             
             

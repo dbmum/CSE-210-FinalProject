@@ -30,7 +30,7 @@ namespace CSE_210_FinalProject
                 
                 arrow.SetPosition(arrowPosition);
                             
-                if ((_inputService.IsLeftPressed() || _inputService.IsRightPressed()) && activePlayer.isUser())
+                if ((_inputService.IsLeftPressed() || _inputService.IsRightPressed()) && activePlayer.isUser() && activePlayer.HasMovement())
                 {
                     
                     Point velocity = new Point
@@ -39,6 +39,7 @@ namespace CSE_210_FinalProject
                         3
                     );
                     activePlayer.SetVelocity(velocity);
+                    activePlayer.LoseMovement();
 
                 }
                 else 

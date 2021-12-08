@@ -63,6 +63,20 @@ namespace CSE_210_FinalProject
             }
 
             newActive.SetActivity(true);
+            if (!newActive.isUser())
+            {
+                Random rand = new Random();
+                if (rand.Next(0,2) == 0 || newActive.GetX() > Constants.MAX_X - 50)
+                {
+                    Point aiVelocity = new Point(-Constants.PLAYER_SPEED + rand.Next(0,6), 0);
+                    newActive.SetVelocity(aiVelocity);
+                }
+                else
+                {
+                    Point aiVelocity = new Point(Constants.PLAYER_SPEED - rand.Next(0,6), 0);
+                    newActive.SetVelocity(aiVelocity);
+                }
+            }
         }
 
         public int TeamCount(int teamNumber, Dictionary<string, List<Actor>> cast)
@@ -105,6 +119,7 @@ namespace CSE_210_FinalProject
                         if (team == teamNumber)
                         {
                             player.SetHasShot(false);
+                            player.ResetMovement();
                         }
                     }
             }
