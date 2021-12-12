@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Casting;
 
-namespace CSE_210_FinalProject
+namespace CSE_210_FinalProject.Scripting
 {
     /// <summary>
     /// An action to draw all of the actors in the game.

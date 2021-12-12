@@ -1,7 +1,9 @@
 using System;
 using Raylib_cs;
+using CSE_210_FinalProject.Casting;
+using CSE_210_FinalProject.Scripting;
 
-namespace CSE_210_FinalProject
+namespace CSE_210_FinalProject.Services
 {
     /// <summary>
     /// Handles all the interaction with the user input library.
@@ -34,6 +36,10 @@ namespace CSE_210_FinalProject
         public bool IsMouseLeftClick()
         {
             return Raylib.IsMouseButtonPressed(Raylib_cs.MouseButton.MOUSE_LEFT_BUTTON);
+        }
+        public bool IsSpacePressed()
+        {
+            return Raylib.GetKeyPressed() == 32;
         }
         public int GetMouseX()
         {
@@ -73,6 +79,30 @@ namespace CSE_210_FinalProject
         public bool IsWindowClosing()
         {
             return Raylib.WindowShouldClose();
+        }
+
+        public int MenuControl()
+        {
+            int direction = 0;
+
+            if (IsUpPressed())
+            {
+                direction = 1;
+            }
+            if (IsDownPressed())
+            {
+                direction = 2;
+            }
+            if (IsLeftPressed())
+            {
+                direction = 3;
+            }
+            if (IsRightPressed())
+            {
+                direction = 4;
+            }
+
+            return direction;
         }
     }
 

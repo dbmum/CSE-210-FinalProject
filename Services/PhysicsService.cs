@@ -1,7 +1,9 @@
 using System;
 using Raylib_cs;
+using CSE_210_FinalProject.Casting;
+using CSE_210_FinalProject.Scripting;
 
-namespace CSE_210_FinalProject
+namespace CSE_210_FinalProject.Services
 {
     /// <summary>
     /// Handles all the physics related parts of the game such as

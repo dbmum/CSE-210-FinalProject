@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
-namespace CSE_210_FinalProject
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Scripting;
+
+namespace CSE_210_FinalProject.Casting
 {
     public class Arrow : Actor
     {
@@ -10,6 +13,8 @@ namespace CSE_210_FinalProject
             Point velocity = new Point(0,0);
             SetWidth(Constants.ARROW_WIDTH);
             SetHeight(Constants.ARROW_HEIGHT);
+
+            SetImage(Constants.ARROW_IMAGE);
 
             SetPosition(staringPosition);
             SetVelocity(velocity);

@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Scripting;
 
-namespace CSE_210_FinalProject
+namespace CSE_210_FinalProject.Casting
 {
     public class Player : Actor
     {
+        private int _AIdifficulty;
         private bool _isUser;
         private int _team;
         private bool _isActivePlayer;
@@ -36,6 +39,14 @@ namespace CSE_210_FinalProject
                 _AIcanShoot = false;
             }
 
+        }
+        public void SetAIdifficulty(int difficulty)
+        {
+            _AIdifficulty = difficulty;
+        }
+        public int GetDIfficulty()
+        {
+            return _AIdifficulty;
         }
         public void SetCanShoot(bool canShoot)
         {

@@ -1,4 +1,8 @@
-namespace CSE_210_FinalProject
+
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Scripting;
+
+namespace CSE_210_FinalProject.Casting
 {
     /// <summary>
     /// Base class for all actors in the game.

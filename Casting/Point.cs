@@ -1,5 +1,8 @@
 using System;
-namespace CSE_210_FinalProject
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Scripting;
+
+namespace CSE_210_FinalProject.Casting
 {
     /// <summary>
     /// Represents an X, Y pair.

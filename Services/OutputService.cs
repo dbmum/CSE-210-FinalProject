@@ -1,15 +1,17 @@
 using System;
 using Raylib_cs;
 using System.Collections.Generic;
+using CSE_210_FinalProject.Casting;
+using CSE_210_FinalProject.Scripting;
 
-namespace CSE_210_FinalProject
+namespace CSE_210_FinalProject.Services
 {
     /// <summary>
     /// Handles all the interaction with the drawing library.
     /// </summary>
     public class OutputService
     {
-        private Raylib_cs.Color _backgroundColor = Raylib_cs.Color.WHITE;
+        private Raylib_cs.Color _backgroundColor = Raylib_cs.Color.BLACK;
         private Dictionary<string, Raylib_cs.Texture2D> _textures
             = new Dictionary<string, Raylib_cs.Texture2D>();
 
@@ -67,7 +69,7 @@ namespace CSE_210_FinalProject
         /// <param name="height"></param>
         public void DrawBox(int x, int y, int width, int height)
         {
-            Raylib.DrawRectangle(x, y, width, height, Raylib_cs.Color.BLUE);            
+            Raylib.DrawRectangle(x, y, width, height, Raylib_cs.Color.GREEN);            
         }
 
         /// <summary>

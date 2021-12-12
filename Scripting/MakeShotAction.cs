@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using CSE_210_FinalProject.Services;
+using CSE_210_FinalProject.Casting;
 
 namespace CSE_210_FinalProject
 {
@@ -8,16 +10,19 @@ namespace CSE_210_FinalProject
         RosterService _rosterService;
         InputService _inputService;
         PhysicsService _physicsService;
-        public MakeShotAction(RosterService rosterService, InputService inputService, PhysicsService physicsService)
+        AudioService _audioService;
+        public MakeShotAction(RosterService rosterService, InputService inputService, PhysicsService physicsService, AudioService audioService)
         {
             _rosterService = rosterService;
             _inputService = inputService;
             _physicsService = physicsService;
+            _audioService = audioService;
         }
         public override void Execute(Dictionary<string, List<Actor>> cast)
         {
             Player activePlayer = _rosterService.GetActivePlayer(cast);
 
+            // User Shot
             if (_inputService.IsMouseLeftClick() && !activePlayer.HasShot() && activePlayer.isUser())
             {
                 int mouseX = _inputService.GetMouseX();
@@ -44,47 +49,57 @@ namespace CSE_210_FinalProject
                 activePlayer.SetHasShot(true);
                 Point stop = new Point(0,0);
                 activePlayer.SetVelocity(stop);
+                if (activePlayer.GetTeam() == 1)
+                {
+                    _audioService.PlaySound(Constants.TEAM_1_GUN_SOUND);
+                }
+                else
+                {
+                    _audioService.PlaySound(Constants.TEAM_2_GUN_SOUND);
+                }
             }
 
+            // AI Shot
             else if (!activePlayer.HasShot() && !activePlayer.isUser())
             {
                 Random rand = new Random();
                 
                 
                 activePlayer.LoseMovement();
-                activePlayer.LoseMovement();
+                // activePlayer.LoseMovement();
                 
                 if (!activePlayer.HasMovement())
                 {
-                Actor closestEnemy = FindClosestEnemy(cast, activePlayer);
-                
-
-
-                // hit percentage a.k.a. difficulty
-                if (rand.Next(0,101) >= Constants.AI_HIT_PERCENTAGE)
-                {
-                   Actor ghostPlayer = new Actor();
-                    ghostPlayer.SetWidth(Constants.PLAYER_WIDTH);
-                    ghostPlayer.SetHeight(Constants.PLAYER_HEIGHT);
-                    int offset = rand.Next(Constants.PLAYER_WIDTH + 5, Constants.PLAYER_WIDTH + 20);
-                    if (rand.Next(0,2) == 1)
-                    {
-                        offset = -offset;
-                    }
-                    Point ghostPosition = new Point(closestEnemy.GetX() + offset, closestEnemy.GetY());
+                    Actor closestEnemy = FindClosestEnemy(cast, activePlayer);
                     
-                    ghostPlayer.SetPosition(ghostPosition);
-                    closestEnemy = ghostPlayer;
-                }
 
-                Point shotVelocity = FindCorrectShot(activePlayer, closestEnemy);
 
-                Bullet bullet = new Bullet(activePlayer.GetX(), activePlayer.GetY(), shotVelocity);
-                cast["projectiles"].Add(bullet);
+                    // hit percentage a.k.a. difficulty
+                    if (rand.Next(0,101) >= activePlayer.GetDIfficulty())
+                    {
+                    Actor ghostPlayer = new Actor();
+                        ghostPlayer.SetWidth(Constants.PLAYER_WIDTH);
+                        ghostPlayer.SetHeight(Constants.PLAYER_HEIGHT);
+                        int offset = rand.Next(Constants.PLAYER_WIDTH + 5, Constants.PLAYER_WIDTH + 20);
+                        if (rand.Next(0,2) == 1)
+                        {
+                            offset = -offset;
+                        }
+                        Point ghostPosition = new Point(closestEnemy.GetX() + offset, closestEnemy.GetY());
+                        
+                        ghostPlayer.SetPosition(ghostPosition);
+                        closestEnemy = ghostPlayer;
+                    }
 
-                activePlayer.SetHasShot(true);
-                Point stop = new Point(0,0);
-                activePlayer.SetVelocity(stop);
+                    Point shotVelocity = FindCorrectShot(activePlayer, closestEnemy);
+
+                    Bullet bullet = new Bullet(activePlayer.GetX(), activePlayer.GetY(), shotVelocity);
+                    cast["projectiles"].Add(bullet);
+
+                    activePlayer.SetHasShot(true);
+                    Point stop = new Point(0,0);
+                    activePlayer.SetVelocity(stop);
+                    _audioService.PlaySound(Constants.TEAM_2_GUN_SOUND);
                 }
                 else
                 {
