@@ -1,20 +1,20 @@
 # Worms Armageddon Remastered
 
 
-This game is a turn-based shooter between two teams of players. THis physics based game is a fun challenge and survival of the fittest type game where the best team will win!
+This game is a turn-based shooter between two teams of players. This physics based game is a fun challenge and survival of the fittest type game where the best team will win!
 
-High priority features:
-    Players
-    Arrow (above active player)
-    Terrain
-    Bullets
+Basic features:
+* Players
+* Arrow (above active player)
+* Terrain
+* Bullets
 
-Low priority features:
-    Randomly generated terrain
-    destructable terrain
-    Menu to choose amount of players on each team and player type
-    AI players
-    Different shot types/weapons
+Stretch features:
+* Randomly generated terrain
+* destructable terrain
+* Menu to choose amount of players on each team and player type
+* AI players
+   
 
 Classes and responsibilities:
 
