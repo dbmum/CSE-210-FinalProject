@@ -1,5 +1,5 @@
-# CSE-210-FinalProject
-Worms Armageddon Remastered
+# Worms Armageddon Remastered
+
 
 This game is a turn-based shooter between two teams of players. THis physics based game is a fun challenge and survival of the fittest type game where the best team will win!
 
